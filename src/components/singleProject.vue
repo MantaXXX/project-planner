@@ -1,7 +1,12 @@
 <template>
-  <div class="project">
+  <div class="project" :class="{ complete: project.complete }">
     <div class="actions">
       <h3 @click="showDetails = !showDetails">{{ project.title }}</h3>
+      <div class="icons">
+        <span class="material-icons"> edit </span>
+        <span class="material-icons" @click="projectDelete"> delete </span>
+        <span class="material-icons tick" @click="toggleComplete"> done </span>
+      </div>
     </div>
     <div class="details" v-if="showDetails">
       <p>{{ project.detail }}</p>
@@ -15,7 +20,27 @@ export default {
   data() {
     return {
       showDetails: false,
+      uri: "http://localhost:3000/project/" + this.project.id,
     };
+  },
+  methods: {
+    projectDelete() {
+      // 要求刪除 method: 'DELETE'
+      fetch(this.uri, { method: "DELETE" })
+        .then(() => this.$emit("delete", this.project.id))
+        .catch((err) => console.log(err.message));
+    },
+    toggleComplete() {
+      fetch(this.uri, {
+        method: "PATCH",
+        // request header, means sending data with request and it's JSON type
+        headers: { "Content-Type": "application/json" },
+        // updated data in body property, have to be JSON data, hence, have to use JSON.stringify()
+        body: JSON.stringify({ complete: !this.project.complete }),
+      })
+        .then(() => this.$emit("complete", this.project.id))
+        .catch((err) => console.log(err.message));
+    },
   },
 };
 </script>
@@ -31,5 +56,26 @@ export default {
 }
 h3 {
   cursor: pointer;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.material-icons {
+  font-size: 24px;
+  margin-left: 10px;
+  color: #bbb;
+  cursor: pointer;
+}
+.material-icons:hover {
+  color: #777;
+}
+.project.complete {
+  border-left: 4px solid #00ce89;
+  text-decoration: line-through;
+}
+.project.complete .tick {
+  color: #00ce89;
 }
 </style>
