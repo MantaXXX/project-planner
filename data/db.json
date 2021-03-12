@@ -11,12 +11,6 @@
       "title": "banner",
       "details": "Lorem ipsum",
       "complete": false
-    },
-    {
-      "title": "try ",
-      "details": "tyes",
-      "complete": true,
-      "id": 3
     }
   ]
 }
