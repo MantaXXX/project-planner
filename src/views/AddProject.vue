@@ -18,7 +18,21 @@ export default {
   },
   methods: {
     handleSubmit() {
-      console.log("yes");
+      let project = {
+        title: this.title,
+        details: this.details,
+        complete: false,
+      };
+      fetch("http://localhost:3000/project/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(project),
+      })
+        // once update the database, redirect to homepage with $router.push() method
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch((err) => console.log(err));
     },
   },
 };
