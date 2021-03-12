@@ -5,10 +5,6 @@
   </nav>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style>
 .main-nav {
   text-align: center;

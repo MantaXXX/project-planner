@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     projectDelete() {
-      // 要求刪除 method: 'DELETE'
+      // request server to delete => method: 'DELETE'
       fetch(this.uri, { method: "DELETE" })
         .then(() => this.$emit("delete", this.project.id))
         .catch((err) => console.log(err.message));

@@ -19,6 +19,7 @@ import FilterNav from "../components/FilterNav";
 
 export default {
   name: "Home",
+  // register components
   components: { SingleProject, FilterNav },
   data() {
     return {
